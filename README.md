@@ -1,53 +1,41 @@
-# 银河 E8 · Apple Music 7.0 + AM++ 兼容维护
+# 在银河 E8 上使用 Apple Music 7.0 + AM++
 
-本仓库保存本地兼容补丁源码、构建工具、验证方法，以及从早期 Root 拦截到第 35 轮交付的工程记录。目标是保留 Apple Music 7.0 的界面和真实认证，提供 AM++ 大屏双栏体验。
+这个项目记录了我们如何让 Apple Music 7.0 在银河 E8 上保留原登录界面，并使用 AM++ 的大屏双栏布局，以及过程中遇到的问题和解决办法。
 
-**当前基线：34 为独立认证实现；35 在相同有效内容上进行无损 ZIP 压缩。** 不需要安装 4.9.5 或外部认证组件。这里没有 Apple APK、SO、账户数据或签名私钥，也不是 Apple Music 完整源码。
+**第一次看，先读 [五分钟看懂这个项目](docs/start-here.md)。不需要先翻源码或35轮日志。**
 
-| 项目 | 状态 |
+## 现在做到哪了
+
+- 早期处理了 Root 启动拦截，合入 AM++，调整横屏布局，并处理应用的蜂窝许可判断。
+- 34 版保留 7.0 的登录和二次验证页面，最后通过 **7.0 自带的另一条真实认证接口** 完成账户交接，不依赖安装 4.9.5。
+- 35 版保持34的有效内容，只压缩安装包：185.52 MiB → 135.13 MiB。
+- 已完成同代码模拟器真实登录与播放相关验证；最终34/35的ARM64实车回归、34新触发二次验证、长期续期仍需验证，详见 [已知问题](docs/known-issues.md)。
+
+## 按你想做的事来读
+
+| 你想了解什么 | 打开这里 |
 |---|---|
-| 宿主 | Apple Music 7.0.0 / 1614，AM++ 1.6.8 |
-| 目标设备 | 银河 E8，Android 12L / API 32，ARM64，2376×936，可用区域 2376×880 |
-| 登录实现 | 原 7.0 IdMS 登录/二次验证页面 → 完成动作 → 同版本保留的 StoreAPI → 真实账户转换与音乐授权 |
-| 34 独立性 | 清理模拟器中的 Apple Music 与旧组件后，仅安装本地等代码版本，真实登录成功 |
-| 35 大小 | 135.13 MiB，比 34 的 185.52 MiB 减少约 27.16% |
-| 验证边界 | ARM64 包做静态/签名检查；运行验证使用 x86_64 同代码本地包。没有把模拟器验证写成实车通过 |
+| 整个项目在做什么，为什么这样解决 | **[五分钟入门](docs/start-here.md)** |
+| 当时一步步遇到了什么，哪些方案放弃了 | [01–35迭代经过](docs/history.md) |
+| 接着修功能或页面Bug，从哪个文件入手 | **[维护与代码导读](docs/code-guide.md)** |
+| 怎样编译、修改认证适配器、重新打包 | [构建说明](docs/build.md) |
+| 哪些通过了测试，哪些还不能保证 | [验证记录](docs/testing.md) · [已知问题](docs/known-issues.md) |
 
-## 源码
+## 代码在哪
 
-- [最终认证适配器源码](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/src/com/e8/auth36)
-- [FinalAccount.java](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/blob/main/src/com/e8/auth36/FinalAccount.java) · [Completion.java](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/blob/main/src/com/e8/auth36/Completion.java)
-- [构建与维护工具](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/tools)
-- [早期横屏与菜单源码](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/historical-src)
-- [源码与历史证据的区别](docs/sources.md)：证据索引中的旧文件名不是源码下载地址。
+[认证源码](src/com/e8/auth36) · [构建工具](tools) · [早期横屏/菜单源码](historical-src) · [测试](tests)
 
-## 阅读入口
+`auth36` 是沿用的代码包名，不代表有第36版。
 
-- [完整迭代记录 01–35](docs/history.md)：问题、证据、决策、结果和未解决项。
-- [早期 Root、AM++ 与无网络](docs/early-compatibility.md)。
-- [认证调查与最终实现](docs/authentication.md)，[架构与接入点](docs/architecture.md)。
-- [构建与签名](docs/build.md)，[验证矩阵](docs/testing.md)，[35 版压缩](docs/packaging.md)。
-- [已知问题](docs/known-issues.md)，[后续维护](CONTRIBUTING.md)，[证据索引](docs/evidence.md)。
+仓库包含原创补丁和工具，没有完整Apple源码、APK、SO、账户数据或私钥。目前能基于自备34/35包重建认证适配器；**从干净官方包重建所有早期改动的流水线还没全部整理完**。修改页面与AM++也需要补相应生产补丁，不能只改这里的Java认证文件。
 
-## 本地快速检查
-
-需要 Python 3.10+、Git；纯工具测试不需要 Android SDK、账户或联网。
+## 开发检查
 
 ```sh
 python -m unittest discover -s tests -v
 python tools/scan_repository.py
 ```
 
-早期原创横屏/DPI与菜单辅助代码保存在 `historical-src`，仅作来源明确的维护参考。
+技术细节按需查阅：[认证调查](docs/authentication.md) · [架构](docs/architecture.md) · [Root/AM++/蜂窝](docs/early-compatibility.md) · [压缩](docs/packaging.md) · [证据来源](docs/evidence.md) · [源码范围](docs/sources.md)。
 
-Java 适配器位于 [src/com/e8/auth36](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/src/com/e8/auth36)。`auth36` 是既有运行时包名，**不是第 36 版**。旧工作目录路径与包名不一致，本次仅规范源码目录，未改动 Java 内容。
-
-本仓库支持重新编译适配器并基于自备34/35包增量重建认证候选、对外部 smali 执行严格接入补丁，以及把自备的 34 APK 压缩成等内容包。**目前没有宣称从官方干净 APK 一键完整重建 34**：早期 Root/布局/诊断基线的生产流水线仍需整理，详见构建文档。
-
-35 与 34 包名、versionCode 和证书相同，可以相互覆盖；“并行”指交付文件同时保留，不是两个应用同时安装。证书摘要和发布哈希见 [release-manifest.json](evidence/release-manifest.json)。
-
-## 项目边界
-
-不伪造身份、签名、令牌或服务器成功；不关闭 TLS 校验，不强制 FPDI Basic，不跨版本移植 SO。需要有效 Apple Music 订阅；服务器策略变化可能影响兼容性。
-
-当前为本地整理导入，历史迭代不等同于 35 次独立 Git 提交。已发布到此公开 GitHub 仓库。授权范围见 [LICENSE](LICENSE) 与 [第三方说明](THIRD_PARTY_NOTICES.md)。
+提交问题请参考 [维护流程](CONTRIBUTING.md)，不要上传账号、密码、验证码或认证令牌。不伪造身份或成功结果，不关闭TLS校验。项目版本绑定Apple Music7.0.0/1614、AM++1.6.8；需要真实订阅，服务器变化可能影响兼容性。许可范围见 [LICENSE](LICENSE) 和 [第三方说明](THIRD_PARTY_NOTICES.md)。
