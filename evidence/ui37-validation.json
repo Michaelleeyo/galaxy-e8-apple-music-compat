@@ -1,0 +1,27 @@
+{
+  "build": 37,
+  "sha256": "747aaf7a48a2dc893408b36f5f5121b68745f46ccbce0b1b972e4c9e81ef9e92",
+  "bytes": 140735031,
+  "certificateSha256": "113307a4a4974d875fff074b6f79ef557abef81aac845c145b88bc529c62eed3",
+  "runtime": {
+    "systemLocale": "zh-Hans-CN,en-US",
+    "equalizerRowAbsent": true,
+    "audioQualityRowPresent": true,
+    "crossfadeRowPresent": true,
+    "soundCheckRowPresent": true,
+    "audioQualitySubpageOpened": true,
+    "eqStillHiddenAfterReturning": true,
+    "settingsValuesChangedDuringThisCheck": false
+  },
+  "physicalCarRuntimeTested": false,
+  "newLoginOrMfaTested": false,
+  "systemAudioEffectsModifiedByPatch": false,
+  "hostAbis": [
+    "arm64-v8a"
+  ],
+  "hostNativeLibrariesUnchanged": true,
+  "moduleUnchanged": true,
+  "otherHostDexUnchanged": true,
+  "settingsModelMatchesTestedLocal": true,
+  "zipAlignmentVerified": true
+}
