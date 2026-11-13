@@ -14,6 +14,6 @@
 | 34 | package34/final-validation.json、mfa-boundary-review.json、最终源码、清安装登录记录 | release-manifest.json / 源码 / 测试矩阵 |
 | 35 | package35/build-validation.json、signing-validation.json、runtime-extraction-validation.json、runtime-playback-validation.json、delivery-result.json | 发布哈希 / 压缩说明 / 测试矩阵 |
 
-`evidence/source-index.json` 记录选定文件的SHA256，便于原电脑复核。摘要证明来源未变，不替代可公开复现的原始证据；外部读者无法仅凭哈希独立复核未公开实车日志。README明确保留这一限制。
+[source-index.json](../evidence/source-index.json) 中的 `privateSourceLabel` 仅标记未公开历史文件，`publicSummaryUrl` 指向公开总结；它不是源码路径。该索引记录选定文件的SHA256，便于原电脑复核。摘要证明来源未变，不替代可公开复现的原始证据；外部读者无法仅凭哈希独立复核未公开实车日志。README明确保留这一限制。
 
 本次仓库整理验证结果见 `evidence/repository-validation.json`：15项单元测试、Java/D8重新编译与34适配器DEX逐字节一致、真实34增量组装及无损压缩、34/35的SHA256/签名/对齐检查。私钥签名步骤未在整理阶段重新执行，未新增设备运行测试。

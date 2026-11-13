@@ -13,6 +13,14 @@
 | 35 大小 | 135.13 MiB，比 34 的 185.52 MiB 减少约 27.16% |
 | 验证边界 | ARM64 包做静态/签名检查；运行验证使用 x86_64 同代码本地包。没有把模拟器验证写成实车通过 |
 
+## 源码
+
+- [最终认证适配器源码](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/src/com/e8/auth36)
+- [FinalAccount.java](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/blob/main/src/com/e8/auth36/FinalAccount.java) · [Completion.java](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/blob/main/src/com/e8/auth36/Completion.java)
+- [构建与维护工具](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/tools)
+- [早期横屏与菜单源码](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/historical-src)
+- [源码与历史证据的区别](docs/sources.md)：证据索引中的旧文件名不是源码下载地址。
+
 ## 阅读入口
 
 - [完整迭代记录 01–35](docs/history.md)：问题、证据、决策、结果和未解决项。
@@ -32,7 +40,7 @@ python tools/scan_repository.py
 
 早期原创横屏/DPI与菜单辅助代码保存在 `historical-src`，仅作来源明确的维护参考。
 
-Java 适配器位于 `src/com/e8/auth36`。`auth36` 是既有运行时包名，**不是第 36 版**。旧工作目录路径与包名不一致，本次仅规范源码目录，未改动 Java 内容。
+Java 适配器位于 [src/com/e8/auth36](https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat/tree/main/src/com/e8/auth36)。`auth36` 是既有运行时包名，**不是第 36 版**。旧工作目录路径与包名不一致，本次仅规范源码目录，未改动 Java 内容。
 
 本仓库支持重新编译适配器并基于自备34/35包增量重建认证候选、对外部 smali 执行严格接入补丁，以及把自备的 34 APK 压缩成等内容包。**目前没有宣称从官方干净 APK 一键完整重建 34**：早期 Root/布局/诊断基线的生产流水线仍需整理，详见构建文档。
 
@@ -42,4 +50,4 @@ Java 适配器位于 `src/com/e8/auth36`。`auth36` 是既有运行时包名，*
 
 不伪造身份、签名、令牌或服务器成功；不关闭 TLS 校验，不强制 FPDI Basic，不跨版本移植 SO。需要有效 Apple Music 订阅；服务器策略变化可能影响兼容性。
 
-当前为本地整理导入，历史迭代不等同于 35 次独立 Git 提交。未自动推送 GitHub。授权范围见 [LICENSE](LICENSE) 与 [第三方说明](THIRD_PARTY_NOTICES.md)。
+当前为本地整理导入，历史迭代不等同于 35 次独立 Git 提交。已发布到此公开 GitHub 仓库。授权范围见 [LICENSE](LICENSE) 与 [第三方说明](THIRD_PARTY_NOTICES.md)。

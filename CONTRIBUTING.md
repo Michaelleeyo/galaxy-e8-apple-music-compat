@@ -11,11 +11,13 @@
 
 当前仓库只有一次真实整理导入，01–35 的过程在文档中还原，不补造时间线。首次提交使用明确的导入维护身份；维护者可为以后提交配置自己的 Git 身份。
 
-在 GitHub 创建空仓库后，审阅所有跟踪文件，再执行：
+当前公开仓库：https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat 。本地已配置 origin，后续审阅变更、提交后执行 `git push origin main`。
+
+另行发布到自己的空仓库时，可执行：
 
 ```sh
 git remote add origin <你的空仓库地址>
 git push -u origin main
 ```
 
-不要上传旧工作目录或 APK 到 GitHub；本次没有创建远端或推送。CI 只运行源码工具测试和内容扫描，不使用账户或私钥。
+不要上传旧工作目录或 APK 到 GitHub；当前维护仓库已推送。CI 只运行源码工具测试和内容扫描，不使用账户或私钥。
