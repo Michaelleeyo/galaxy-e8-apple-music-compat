@@ -1,0 +1,34 @@
+{
+  "build": 38,
+  "sha256": "73d1028ded0ed2749f5ff08be67f1c4405534c3051579c365283e7d753ea6d99",
+  "certificateSha256": "113307a4a4974d875fff074b6f79ef557abef81aac845c145b88bc529c62eed3",
+  "imageSize": [
+    182,
+    104
+  ],
+  "light": "white background, black note",
+  "dark": "black background, white note",
+  "outerDifferences": {
+    "equal": false,
+    "missing": [],
+    "added": [
+      "res/mipmap-night-nodpi/ic_launcher.png",
+      "res/mipmap-night-nodpi/ic_launcher_round.png",
+      "res/mipmap-nodpi/ic_launcher.png",
+      "res/mipmap-nodpi/ic_launcher_round.png"
+    ],
+    "changed": [
+      "assets/npatch/origin.apk",
+      "resources.arsc"
+    ],
+    "entries": 6437
+  },
+  "carRuntimeTested": false,
+  "dexNativeModulesUnchanged": true,
+  "zipAlignmentVerified": true,
+  "resourceConfigurations": [
+    "nodpi",
+    "night-nodpi"
+  ],
+  "launcherRefreshRuntimeTested": false
+}
