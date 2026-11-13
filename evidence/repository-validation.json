@@ -21,11 +21,9 @@
   "release34And35PayloadEqual": true,
   "portableRepackOnReal34PayloadEqual": true,
   "deviceRuntimeTestsDuringImport": false,
-  "signingWithPrivateKeyDuringImport": false,
   "fullOfficialApkTo34BuildImplemented": false,
   "incrementalAssemblyOnReal34Validated": true,
   "incrementalInnerPayloadUnchangedForOriginalAdapter": true,
-  "sourceFilesNormalizedToLf": true,
   "maintenanceReview": {
     "date": "2026-11-13",
     "latestRelease": "38",

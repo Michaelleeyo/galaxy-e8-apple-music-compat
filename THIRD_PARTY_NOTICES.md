@@ -5,6 +5,6 @@
 - NPatch：https://github.com/7723mod/NPatch 。既有交付采用其嵌入结构。
 - Android SDK / JDK / smali / Kotlin 运行时均为外部依赖。本仓库中的编译占位接口只用于解析宿主已有类型，不打进适配器 DEX，不提供运行时实现。
 
-上游链接是历史来源记录，不代表当前仍可下载或已重新审核最新发布。公开本仓库与分发修改后的第三方 APK 是两件事；发布范围默认只含本仓库原创文件。
+APKEditor 1.4.9 / ARSCLib 1.3.9用于38版资源解码与重建；aapt2用于资源配置检查。以上为构建时使用的版本，非上游最新版本声明。
 
 36界面工作新增AM++对应Kotlin源码补丁：`patches/amplusplus-1.6.8-car-player.patch`，遵循GPL-3.0-only，基于上列精确提交；完整许可文本在 `licenses/AMplusplus-GPL-3.0.txt`。

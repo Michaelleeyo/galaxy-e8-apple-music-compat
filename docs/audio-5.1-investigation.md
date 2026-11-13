@@ -10,7 +10,7 @@
 - 早期实验曾在模拟器强制显示Atmos开关，但无对应解码/直通能力，未验证真实Atmos。实验已回退，不进入当前生产认证或UI补丁。
 - 37版仅隐藏均衡器入口，不新增多声道解码、声道转换、WANOS接入或功放路由。
 
-## 本次代码核实
+## 7.0.0/1614代码核查记录
 
 当前7.0.0/1614保留AudioDeviceCapabilities.isDolbyAtmosAvailable，检查audio/eac3-joc。其内部b方法查MediaCodecList.findDecoderForFormat，构造48kHz/2声道格式；或者按该编码、48kHz及0xC立体声掩码检查AudioTrack.isDirectPlaybackSupported，部分调用还检查ExoPlayer AudioCapabilities。
 

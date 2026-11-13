@@ -22,7 +22,7 @@ Media3 DummyExoMediaDrm 的 openSession 固定抛 MediaDrmException；正常 Fra
 
 25 的无 Widevine 模拟器是隔离受控环境；26 完成 MFA 后复现外层 112/500/1524，但没有 15/16 全部内部节点。并非严格只改变 Widevine 的成功/失败 A/B。
 
-27–29 实际到达 `POST https://auth.itunes.apple.com/auth/v1/native`，原装管线与业务解析正常。早期请求 HTTP200、-20101、无账户，只能证明该次拒绝；原装 `otp/1.5/finish` 是机器 provisioning，不能视为用户二次认证。某轮有效 Anisette 仍被拒绝，因此不能把 -45061 认定唯一原因。随后凭据核对也发现密码阶段 -22406，修正输入后原旧版真实 MFA 成功。这里不保留任何输入值。
+27–29 实际到达 `POST https://auth.itunes.apple.com/auth/v1/native`，原装管线与业务解析正常。早期请求 HTTP200、-20101、无账户，只能证明该次拒绝；原装 `otp/1.5/finish` 是机器 provisioning，不能视为用户二次认证。某轮有效 Anisette 仍被拒绝，因此不能把 -45061 认定唯一原因。随后凭据核对也发现密码阶段 -22406，修正输入后原旧版真实 MFA 成功。
 
 ## 最终突破：不是把 4.9.5 塞进 7.0
 

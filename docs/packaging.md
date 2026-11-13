@@ -4,6 +4,8 @@ ARM64 34 为 194,527,799 字节（185.52 MiB），35 为 141,693,495（135.13 Mi
 
 NPatch 外层包含完整 origin.apk、模块、资源和加载器，嵌套结构天然比单一官方 split 大。先前重建流程把 origin.apk 与原生库存为 STORED，造成额外膨胀；35 将这些条目压缩，保持每项解压后字节完全不变。并未删除音频库、改认证或降低画质。官方单个基础/ABI split 的“几十兆”不等于整个完整安装体积。
 
-规则：只移除旧 META-INF 签名条目后重新签名；resources.arsc 保持 STORED；其余可用 DEFLATE9；16KiB zipalign 检查；原清单 extractNativeLibs=true 是压缩原生库允许提取的前提。工具要求操作者明确确认该条件，不偷偷修改 Manifest。
+35重打包规则：只移除旧 META-INF 签名条目后重新签名；resources.arsc 保持 STORED；其余可用 DEFLATE9；16KiB zipalign 检查；原清单 extractNativeLibs=true 是压缩原生库允许提取的前提。工具要求操作者明确确认该条件，不偷偷修改 Manifest。
 
 必须分别比较非签名条目集合、解压长度和SHA256；嵌套 origin.apk 也整体逐字节一致。签名证书匹配原基线。安装后还验证加载器冷提取及本地 native 提取，而不只比较 ZIP 大小。压缩速度/时间戳/签名实现不同，重新构建不保证整个 APK 哈希复现。
+
+后续36–38包含UI或资源修改，不能再用“与34全部解压内容一致”描述。各版本大小及哈希见 [发布清单](../evidence/release-manifest.json)。

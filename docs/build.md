@@ -2,6 +2,8 @@
 
 ## 可用工具
 
+本页按版本列出构建入口；功能说明和运行验证见对应版本文档。
+
 Python3.10+；JDK21（本地21.0.13+9）；Android平台 android-34/android.jar；现有 Android build-tools 中 d8.jar、zipalign、apksigner.jar；smali工具；38图标构建另需APKEditor 1.4.9。
 
 ```sh
@@ -26,7 +28,7 @@ python tools/update_adapter.py <自备34或35.apk> <编译输出/classes.dex> <�
 
 ## 34 → 35 无损重打包
 
-以34APK为输入，先核对清单extractNativeLibs=true。签名参数中的keystore与alias使用基线证书对应配置。E8_SIGN_PASSWORD为签名密码，密钥密码不同时另设E8_KEY_PASSWORD。
+以34APK为输入，先核对清单extractNativeLibs=true。签名参数中的keystore与alias使用基线证书对应配置。签名密码由环境变量E8_SIGN_PASSWORD提供，密钥密码不同时另设E8_KEY_PASSWORD。
 
 ```sh
 python tools/repack.py <34.apk> <35-new.apk> --extract-native-libs-confirmed --java <java> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <keystore路径> --alias <原别名> --expected-cert 113307a4a4974d875fff074b6f79ef557abef81aac845c145b88bc529c62eed3
