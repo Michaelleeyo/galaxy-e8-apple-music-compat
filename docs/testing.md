@@ -14,7 +14,7 @@
 | 37均衡器入口 | 中文设置入口隐藏且无空行，其他音频设置和音频质量子页正常 | 中文模拟器；ARM64静态及代码一致性核验通过 |
 | 38日夜图标 | 两套182×104原图、nodpi/night-nodpi资源配置、原签名及对齐；DEX/SO/AM++不变 | 静态核验，尚无车机桌面即时换图运行记录 |
 
-验证摘要：[36](../evidence/ui36-validation.json) · [37](../evidence/ui37-validation.json) · [38](../evidence/ui38-validation.json)。产物大小与SHA256统一见 [发布清单](../evidence/release-manifest.json)。
+验证摘要：[36](../evidence/ui36-validation.json) · [37](../evidence/ui37-validation.json) · [38](../evidence/ui38-validation.json) · [39](../evidence/ui39-validation.json)。产物大小与SHA256统一见 [发布清单](../evidence/release-manifest.json)。
 
 ## 历史实验
 

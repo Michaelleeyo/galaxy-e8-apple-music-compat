@@ -3,6 +3,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from apk_common import repack,compare_payloads,inventory
 from patch_ui import patch,MARKER
+from patch_early_compatibility import patch_root,patch_cellular
 from scan_repository import findings
 from update_adapter import replace_adapter
 
@@ -52,6 +53,44 @@ class PatchTests(unittest.TestCase):
     def test_rejects_version_drift(self):
         for s in (self.SOURCE.replace('.locals 2','.locals 0'),self.SOURCE*2,self.SOURCE.replace('.line 1','.line 2'),self.SOURCE.replace('    .line 1','    const/4 v0, 0x0\n    .line 1')):
             with self.subTest(source=s),self.assertRaises(ValueError):patch(s)
+
+class EarlyCompatibilityPatchTests(unittest.TestCase):
+    ROOT='''.method public static i()Z
+    .registers 2
+    invoke-static {}, Lwg/h;->h()Z
+    move-result v0
+    new-instance v0, Ljava/io/File;
+    const-string v1, "/system/bin/su"
+    return v0
+.end method
+'''
+    CELLULAR='''.method public getUseCellularData(Landroid/content/Context;)Z
+    .registers 3
+    invoke-interface {p1}, Lcom/apple/android/music/playback/connectivity/ConnectivityChecker;->isCellularAvailable()Z
+    const-string p1, "key_use_cellular_data"
+    return p0
+.end method
+
+.method public isCellularDataEnabled()Z
+    .registers 3
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+    const-string v0, "cellular_data_enabled"
+    return p0
+.end method
+'''
+    def test_root_gate_is_narrow(self):
+        result=patch_root(self.ROOT)
+        self.assertIn('const/4 v0, 0x0',result)
+        self.assertNotIn('/system/bin/su',result)
+    def test_root_gate_rejects_drift(self):
+        with self.assertRaises(ValueError):patch_root(self.ROOT.replace('Lwg/h;->h()Z','Lx/y;->z()Z'))
+    def test_cellular_patches_both_entry_points(self):
+        result=patch_cellular(self.CELLULAR)
+        self.assertEqual(result.count('const/4 v0, 0x1'),2)
+        self.assertIn('Landroidx/annotation/Keep;',result)
+    def test_cellular_rejects_partial_match(self):
+        with self.assertRaises(ValueError):patch_cellular(self.CELLULAR.replace('key_use_cellular_data','other_key'))
 
 class ScannerTests(unittest.TestCase):
     def test_artifacts(self):self.assertIn('forbidden-artifact',findings(Path('sample.apk'),b'fixture'))

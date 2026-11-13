@@ -6,6 +6,8 @@
 
 Python3.10+；JDK21（本地21.0.13+9）；Android平台 android-34/android.jar；现有 Android build-tools 中 d8.jar、zipalign、apksigner.jar；smali工具；38图标构建另需APKEditor 1.4.9。
 
+早期Root启动门槛与车机网络许可可使用 `tools/patch_early_compatibility.py` 对用户自行提取的7.0.0/1614 `classes2.dex` smali目录应用严格补丁。完整命令、锚点和边界见 [早期兼容说明](early-compatibility.md)。该工具只生成修改后的smali/DEX输入，不包含Apple APK或签名材料。
+
 ```sh
 python tools/build_adapter.py --jdk <JDK根目录> --android-jar <android.jar> --d8 <d8.jar> --out <仓库外构建目录>
 python tools/patch_ui.py <外部ActionJSInterface.smali> --dry-run

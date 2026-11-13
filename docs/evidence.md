@@ -1,6 +1,6 @@
 # 证据索引与来源
 
-当前交付链为34–38，版本大小与SHA256见 [发布清单](../evidence/release-manifest.json)，验证环境和结果见 [验证矩阵](testing.md)。
+当前交付链为34–39，版本大小与SHA256见 [发布清单](../evidence/release-manifest.json)，验证环境和结果见 [验证矩阵](testing.md)。
 
 | 阶段 | 主要来源 | 项目记录 |
 |---|---|---|

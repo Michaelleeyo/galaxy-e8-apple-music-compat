@@ -1,0 +1,15 @@
+{
+  "build": 39,
+  "host": "Apple Music 7.0.0 (1614)",
+  "module": "AM++ 1.6.8",
+  "bytes": 141669255,
+  "sha256": "27ac8e6403e7110ad472d04ecd3528fd9a4bb7cd3114c5fa5b2dc4f5bc816a76",
+  "certificateSha256": "113307a4a4974d875fff074b6f79ef557abef81aac845c145b88bc529c62eed3",
+  "zipAligned": true,
+  "signatureVerified": true,
+  "changedPayloads": ["assets/npatch/modules/dev.amenhancer.module.apk/classes2.dex"],
+  "originApkUnchanged": true,
+  "queueAdapterModified": false,
+  "emulatorPreviewSha256": "45ba1fc548f3365742c2b00a41027771c3cb045b701b172ea6960c480bc8d02e",
+  "physicalCarTested": false
+}
