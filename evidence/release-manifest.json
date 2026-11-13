@@ -10,6 +10,10 @@
     "35": {
       "bytes": 141693495,
       "sha256": "4e2b203ff2d8af8c6b989cd1a166310667efc0e1ce51326325fd29eb9dd3fc63"
+    },
+    "36": {
+      "bytes": 140735031,
+      "sha256": "1d3ad9daeb18c39f96f12b0e68cdcea8f6de4fe2e4829ed676eb82861cb4412e"
     }
   },
   "sourceSha256": {

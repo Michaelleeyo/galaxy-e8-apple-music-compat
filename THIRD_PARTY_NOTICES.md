@@ -6,3 +6,5 @@
 - Android SDK / JDK / smali / Kotlin 运行时均为外部依赖。本仓库中的编译占位接口只用于解析宿主已有类型，不打进适配器 DEX，不提供运行时实现。
 
 上游链接是历史来源记录，不代表当前仍可下载或已重新审核最新发布。公开本仓库与分发修改后的第三方 APK 是两件事；发布范围默认只含本仓库原创文件。
+
+36界面工作新增AM++对应Kotlin源码补丁：`patches/amplusplus-1.6.8-car-player.patch`，遵循GPL-3.0-only，基于上列精确提交；完整许可文本在 `licenses/AMplusplus-GPL-3.0.txt`。模块二进制未上传。

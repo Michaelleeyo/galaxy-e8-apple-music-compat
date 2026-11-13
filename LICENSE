@@ -11,3 +11,6 @@ rights continue to apply. No proprietary application binaries are included.
 
 维护者尚未选择新增代码的开源许可证；本次整理不会替维护者授予许可。
 如后续引入或分发 GPL 代码/模块，需单独核实相应源代码及许可义务。
+
+Exception: patches/amplusplus-1.6.8-car-player.patch is GPL-3.0-only,
+as indicated in that file; see licenses/AMplusplus-GPL-3.0.txt.

@@ -42,3 +42,14 @@ python tools/verify_apk.py <34.apk> <35-new.apk>
 ## 发布前检查
 
 确认 ARM64 与本地变体的 adapter 字节一致；原生库及模块哈希不变；zipalign/apksigner 验证；完整功能回归按 docs/testing.md；新增产物放仓库外，更新证据清单。签名摘要不是私钥，可以公开；无法取得原私钥时不能声称可覆盖已安装版本。
+
+## 35 → 36界面修复
+
+此流程完全使用自备35基线及外部smali工具，不依赖原电脑工作目录，也不修改认证适配器。输出工作目录必须尚不存在。
+
+```sh
+python tools/prepare_car_ui.py --baseline <35.apk> --expected-input-sha 4e2b203ff2d8af8c6b989cd1a166310667efc0e1ce51326325fd29eb9dd3fc63 --work <外部工作目录> --java <java> --baksmali <baksmali.jar> --smali <smali.jar>
+python tools/build_car_ui.py --baseline <35.apk> --expected-input-sha 4e2b203ff2d8af8c6b989cd1a166310667efc0e1ce51326325fd29eb9dd3fc63 --host-dex <工作目录/host-classes2.dex> --module-dex <工作目录/module-classes2.dex> --output <36.apk> --java <java> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <外部私钥> --alias <原别名>
+```
+
+密码使用前述环境变量。工具校验真实35基线摘要及证书，修改歌单按钮的位图密度与AM++播放器布局后，重新签名模块及外层包，并限制有效条目差异范围。对应AM++源码补丁及验证范围见 [36修改说明](ui36-preview.md)。输出仍为宿主7.0.0/1614，可沿用原证书覆盖安装；36是本项目交付序号。

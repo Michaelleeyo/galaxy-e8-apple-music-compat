@@ -1,0 +1,79 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# Upstream commit: 388164c74de63d05495d91f8a83164fb4772ca31
+--- a/host-applemusic/src/main/java/dev/amenhancer/module/hook/tabletmedia/TabletSongColumnLayout.kt
++++ b/host-applemusic/src/main/java/dev/amenhancer/module/hook/tabletmedia/TabletSongColumnLayout.kt
+@@ -265,13 +265,26 @@
+         val nativeLabelHeight = base?.let { nativeProgressLabelHeight(it.contentWidth) } ?: 0
+         val layout = if (base != null && nativeLabelHeight > base.progressHeight - base.progressTrackHeight - base.progressLabelGap)
+             TabletArtworkLayoutPolicy.songColumn(width, player.height, scale, nativeLabelHeight) else base
++        val carDelta = layout?.let { carVerticalOffset(it) } ?: 0
+         frame = layout?.let { it.copy(contentLeft = it.contentLeft + leftInset,
+-                coverTop = it.coverTop - insetTop, thumbCenterY = it.thumbCenterY - insetTop,
+-                controlsTop = it.controlsTop - insetTop, controlsBottom = it.controlsBottom - insetTop,
+-                metadataTop = it.metadataTop - insetTop, progressTop = it.progressTop - insetTop,
+-                mediaTop = it.mediaTop - insetTop, volumeTop = it.volumeTop - insetTop,
++                coverTop = it.coverTop + carDelta - insetTop, thumbCenterY = it.thumbCenterY + carDelta - insetTop,
++                controlsTop = it.controlsTop + carDelta - insetTop, controlsBottom = it.mediaTop + it.mediaHeight + carDelta - insetTop,
++                metadataTop = it.metadataTop + carDelta - insetTop, progressTop = it.progressTop + carDelta - insetTop,
++                mediaTop = it.mediaTop + carDelta - insetTop, volumeTop = it.volumeTop - insetTop,
+                 outputLeft = it.outputLeft + leftInset, outputTop = it.outputTop - insetTop) }
+         return frame
++    }
++    // E8: center visible content after removing volume/output from this product UI.
++    private fun carVerticalOffset(g: TabletArtworkLayoutPolicy.SongColumn): Int {
++        val top = g.thumbCenterY - g.thumbHeight / 2
++        val bottom = g.mediaTop + g.mediaHeight
++        val safeBottom = player.height - insetBottom
++        if (bottom - top > safeBottom - insetTop) return 0
++        return (insetTop + safeBottom - top - bottom) / 2
++    }
++    private fun carHideVolume() {
++        volume.setPageVisible(false)
++        volume.visibility = View.GONE
+     }
+     /** Measure only on layout preparation, preserving every native badge property. */
+     private fun nativeProgressLabelHeight(width: Int): Int {
+@@ -310,7 +323,7 @@
+         val layout = geometry(topInset, bottomInset) ?: run {
+             val changed = states.isNotEmpty()
+             states.values.toList().asReversed().forEach { it.close() }; states.clear()
+-            overlay.visibility = View.INVISIBLE; volume.setPageVisible(false); return changed
++            overlay.visibility = View.INVISIBLE; carHideVolume(); return changed
+         }
+         columns.forEach { prepareColumn(it, layout) }
+         queueColumns.forEach { prepareQueue(it, layout) }
+@@ -422,7 +435,7 @@
+         fullscreenForProgress(expansion)
+         val g = frame; val column = if (songVisible) current else if (queueVisible) currentQueue else null
+         if (closed || g == null || column == null || !column.isShown || !player.isShown || expansion <= .001f) {
+-            overlay.visibility = View.INVISIBLE; volume.setPageVisible(false)
++            overlay.visibility = View.INVISIBLE; carHideVolume()
+             output.isEnabled = false
+             shuffle.stopFeedback(); repeat.stopFeedback(); return
+         }
+@@ -441,7 +454,7 @@
+         if (!interactive && presentedFrame == g && overlay.width == player.width && overlay.height == player.height) {
+             overlay.visibility = View.VISIBLE
+             thumb.isEnabled = false; shuffle.isEnabled = false; repeat.isEnabled = false
+-            volume.setPageVisible(false)
++            carHideVolume()
+             thumb.visibility = if (songVisible) View.VISIBLE else View.INVISIBLE
+             return
+         }
+@@ -465,7 +478,7 @@
+             output.setPadding(outputPadding, outputPadding, outputOpposite, outputOpposite)
+         place(output, g.outputLeft + (g.outputSize - outputSize) / 2,
+             insetTop + g.outputTop + (g.outputSize - outputSize) / 2, outputSize, outputSize)
+-        volume.setPageVisible(interactive)
++        carHideVolume()
+         presentedFrame = g
+         if (modes == null) { shuffle.visibility = View.INVISIBLE; repeat.visibility = View.INVISIBLE; return }
+         val now = android.os.SystemClock.uptimeMillis()
+@@ -499,6 +512,7 @@
+         } }.toList()
+     }
+     private fun place(view: View, x: Int, y: Int, width: Int, height: Int) {
++        if (view === volume || view === output) { view.visibility = View.GONE; return }
+         if (width <= 0 || height <= 0) { view.visibility = View.INVISIBLE; return }
+         (view.layoutParams as? FrameLayout.LayoutParams)?.let { p ->
+             if (p.width != width || p.height != height || p.leftMargin != x || p.topMargin != y) {

@@ -1,0 +1,63 @@
+{
+  "build": 36,
+  "host": "Apple Music 7.0.0/1614",
+  "baselineSha256": "4e2b203ff2d8af8c6b989cd1a166310667efc0e1ce51326325fd29eb9dd3fc63",
+  "sha256": "1d3ad9daeb18c39f96f12b0e68cdcea8f6de4fe2e4829ed676eb82861cb4412e",
+  "bytes": 140735031,
+  "mib": 134.22,
+  "certificateSha256": "113307a4a4974d875fff074b6f79ef557abef81aac845c145b88bc529c62eed3",
+  "hostAbis": [
+    "arm64-v8a"
+  ],
+  "hostNativeLibraryCount": 25,
+  "hostNativeLibrariesUnchanged": true,
+  "manifestUnchanged": true,
+  "outerResourcesUnchanged": true,
+  "hostPayloadDiff": {
+    "equal": false,
+    "missing": [],
+    "added": [],
+    "changed": [
+      "classes2.dex"
+    ],
+    "entries": 6412
+  },
+  "modulePayloadDiff": {
+    "equal": false,
+    "missing": [],
+    "added": [],
+    "changed": [
+      "classes2.dex"
+    ],
+    "entries": 143
+  },
+  "runtimeScope": "Same-code x86_64 emulator candidate, not ARM64 car run",
+  "newLoginOrMfaTested": false,
+  "menuIssueFixed": false,
+  "baseline35CarSuccess": "User reported, with playback/lyrics photo",
+  "allOtherHostDexIncludingAuthenticationUnchanged": true,
+  "hostUiDexMatchesTestedLocal": true,
+  "authenticationAdapterMatchesTestedLocal": true,
+  "moduleUiDexMatchesTestedLocal": true,
+  "zipAlignmentVerified": true,
+  "portableReassemblyMatchesTestedDex": {
+    "host": true,
+    "module": true
+  },
+  "runtimeChecks": {
+    "playlistButtonNoCropping": true,
+    "albumDetailsButtonNormal": true,
+    "volumeAndOutputHidden": true,
+    "lyricsDisplayed": true,
+    "mediaSessionPlayingObserved": true,
+    "playerErrorObserved": null,
+    "queueTransitionSettled": true,
+    "collapseToMiniPlayer": true,
+    "audibleOutputVerified": false
+  },
+  "menuChecks": {
+    "homeNewRadioAndRetestRightAligned": true,
+    "physicalCarLeftMenuReproduced": false,
+    "deferredToPhysicalCarAdb": true
+  }
+}
