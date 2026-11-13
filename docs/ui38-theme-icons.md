@@ -9,10 +9,10 @@
 仅从重建包取resources.arsc及四份PNG，写入原外层包及assets/npatch/origin.apk。原清单、DEX、SO、AM++模块和其他资源逐字节保留；旧图标文件可能仍留在ZIP内，但不再由这两个资源ID引用。
 
 ```sh
-python tools/build_theme_icons.py --baseline <37.apk> --light <白底黑音符.png> --dark <黑底白音符.png> --work <新的外部工作目录> --output <38.apk> --java <java> --apkeditor <APKEditor.jar> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <外部私钥> --alias <原别名>
+python tools/build_theme_icons.py --baseline <37.apk> --light <白底黑音符.png> --dark <黑底白音符.png> --work <新的外部工作目录> --output <38.apk> --java <java> --apkeditor <APKEditor.jar> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <keystore路径> --alias <原别名>
 ```
 
-密码从E8_SIGN_PASSWORD/E8_KEY_PASSWORD环境变量读取。图片、完整APK、工具二进制和签名私钥均由使用者在仓库外提供；构建工具不读取历史脚本中的密码。版本仍为7.0.0/1614，38为交付序号。重建工具版本及ZIP压缩差异可能影响输出哈希，不保证逐字节复现。
+输入包括37APK、两张PNG和APKEditor；签名配置见 [构建说明](build.md)。版本仍为7.0.0/1614，38为交付序号。重建工具版本及ZIP压缩差异可能影响输出哈希，不保证逐字节复现。
 
 ## 验证与边界
 

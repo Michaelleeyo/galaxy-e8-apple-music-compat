@@ -5,19 +5,35 @@
   "releases": {
     "34": {
       "bytes": 194527799,
-      "sha256": "23a50da45c52d670d8b6f82c74e8bbc88e71ddf00cf8921208a85f40a6c80a65"
+      "sha256": "23a50da45c52d670d8b6f82c74e8bbc88e71ddf00cf8921208a85f40a6c80a65",
+      "validationSummary": "docs/testing.md",
+      "physicalCarSuccessReported": false
     },
     "35": {
       "bytes": 141693495,
-      "sha256": "4e2b203ff2d8af8c6b989cd1a166310667efc0e1ce51326325fd29eb9dd3fc63"
+      "sha256": "4e2b203ff2d8af8c6b989cd1a166310667efc0e1ce51326325fd29eb9dd3fc63",
+      "validationSummary": "docs/testing.md",
+      "physicalCarSuccessReported": true,
+      "physicalCarEvidenceType": "user feedback with playback and lyrics images"
     },
     "36": {
       "bytes": 140735031,
-      "sha256": "1d3ad9daeb18c39f96f12b0e68cdcea8f6de4fe2e4829ed676eb82861cb4412e"
+      "sha256": "1d3ad9daeb18c39f96f12b0e68cdcea8f6de4fe2e4829ed676eb82861cb4412e",
+      "validationSummary": "docs/testing.md",
+      "physicalCarSuccessReported": false
     },
     "37": {
       "bytes": 140735031,
-      "sha256": "747aaf7a48a2dc893408b36f5f5121b68745f46ccbce0b1b972e4c9e81ef9e92"
+      "sha256": "747aaf7a48a2dc893408b36f5f5121b68745f46ccbce0b1b972e4c9e81ef9e92",
+      "validationSummary": "docs/testing.md",
+      "physicalCarSuccessReported": false
+    },
+    "38": {
+      "bytes": 144016263,
+      "sha256": "73d1028ded0ed2749f5ff08be67f1c4405534c3051579c365283e7d753ea6d99",
+      "validationSummary": "docs/testing.md",
+      "physicalCarSuccessReported": false,
+      "launcherRefreshRuntimeTested": false
     }
   },
   "sourceSha256": {
@@ -30,5 +46,6 @@
     "stubs/kotlin/coroutines/Continuation.java": "c88c1b61ea0f296c8489d00de4f9dfb4813a008837795e3c242c5b1663c7df1c"
   },
   "binariesIncluded": false,
-  "physicalCarFinalBuildValidated": false
+  "latestRelease": "38",
+  "statusAsOf": "2026-11-13"
 }

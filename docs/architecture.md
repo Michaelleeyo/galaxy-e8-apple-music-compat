@@ -1,4 +1,6 @@
-# 34/35 架构与版本绑定
+# 当前架构与版本绑定
+
+当前交付38沿用34认证实现与35压缩方式；36修改宿主/模块界面DEX，37修改宿主设置列表，38只替换内外层启动图标资源。下文描述34引入并沿用至38的认证架构。
 
 ```mermaid
 flowchart TD
@@ -15,7 +17,7 @@ flowchart TD
   M --> R[真实 JS account 交回原 UI]
 ```
 
-源码：[FinalAccount.java](../src/com/e8/auth36/FinalAccount.java) 和 [Completion.java](../src/com/e8/auth36/Completion.java)。对原 ActionJSInterface.postMessage 只插入 route 调用；见 [接入补丁](../patches/final-action-hook.smali) 与 [严格补丁工具](../tools/patch_ui.py)。没有复制整份 Apple smali。
+源码：[FinalAccount.java](../src/com/e8/auth36/FinalAccount.java) 和 [Completion.java](../src/com/e8/auth36/Completion.java)。对原 ActionJSInterface.postMessage 只插入 route 调用；见 [接入补丁](../patches/final-action-hook.smali) 与 [严格补丁工具](../tools/patch_ui.py)。
 
 route 只接受 run、精确 AMSIDMSAuthenticationCompleteAction、真实 username/PET、makeCurrentAccount/canMakeAccountActive 为真、ignoreAccountConversion 为假且无额外 HTTP headers。其他请求原样交回原流程；注册失败也回退原流程，不能把回退等同于兼容认证成功。
 

@@ -30,5 +30,6 @@
     "nodpi",
     "night-nodpi"
   ],
-  "launcherRefreshRuntimeTested": false
+  "launcherRefreshRuntimeTested": false,
+  "bytes": 144016263
 }

@@ -1,23 +1,15 @@
 # 维护流程
 
-1. 从 `main` 建立 `fix/问题编号` 或 `feat/功能名` 分支；一项变更一个明确目标。
-2. 先提交 Issue：版本/ABI/API、入口、最小步骤、期望与实际行为、是否首次登录/MFA、脱敏阶段码。不要附完整登录日志。
-3. UI 问题先区分主线程 ANR、WebView 页面、布局边界和账户状态；不要为界面故障重写认证。
-4. 升级宿主前核对混淆类/方法签名和最终动作参数；不能直接沿用旧名字。
-5. 运行测试与扫描；认证修改补真实登录、取消、错误凭据、需要 MFA、账户落地、授权 API 和播放验证。无法完成项明确列出。
-6. 更新 CHANGELOG、验证矩阵和自备产物清单；签名必须沿用既有证书。35 之后建议使用独立项目版本（例如 compat-36），不要混淆宿主版本。
-
-## GitHub 接入
-
-当前仓库只有一次真实整理导入，01–35 的过程在文档中还原，不补造时间线。首次提交使用明确的导入维护身份；维护者可为以后提交配置自己的 Git 身份。
-
-当前公开仓库：https://github.com/Michaelleeyo/galaxy-e8-apple-music-compat 。本地已配置 origin，后续审阅变更、提交后执行 `git push origin main`。
-
-另行发布到自己的空仓库时，可执行：
+1. 记录问题对应的项目版本、ABI/API、入口、复现步骤及期望行为。
+2. 根据影响范围修改认证、宿主UI、AM++模块或资源；升级宿主时重新核对混淆方法及参数。
+3. 运行单元测试、仓库扫描和对应构建核验。设备验证写清版本、环境、步骤与结果。
+4. 同步更新CHANGELOG、验证矩阵、发布清单及当前状态，已完成的问题移出待办。
+5. 审阅变更后提交并推送。项目版本使用compat-38这样的交付序号，宿主版本单独记录。
 
 ```sh
-git remote add origin <你的空仓库地址>
-git push -u origin main
+python -m unittest discover -s tests -v
+python tools/scan_repository.py
+git push origin main
 ```
 
-不要上传旧工作目录或 APK 到 GitHub；当前维护仓库已推送。CI 只运行源码工具测试和内容扫描，不使用账户或私钥。
+[构建说明](docs/build.md) · [当前状态](docs/known-issues.md) · [验证矩阵](docs/testing.md)

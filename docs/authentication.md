@@ -1,5 +1,7 @@
 # 认证调查：从关闭弹框到真实兼容路径
 
+当前38沿用34引入的独立认证路径，35已有用户实车成功反馈。下文旧错误链用于解释修复来源，不作为当前未解决的登录故障。
+
 ## 最初误区与收敛
 
 实车输入后弹框关闭，应用没有崩溃。仅观察 UI 不能区分取消、未发起、未记录或原生失败；13 的实际日志出现 `ExpectedDataBuffer.hasValue=false` 和 WebContainer ResolveFailed，随后 Failure/DefaultFailure，证明关闭是失败结果后的行为。`ExpectedDataBuffer.error()` 是结果读取接口，不能覆盖其底层所有创建路径，也不是唯一故障点。

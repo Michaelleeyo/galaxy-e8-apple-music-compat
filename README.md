@@ -1,45 +1,41 @@
 # 在银河 E8 上使用 Apple Music 7.0 + AM++
 
-这个项目记录了我们如何让 Apple Music 7.0 在银河 E8 上保留原登录界面，并使用 AM++ 的大屏双栏布局，以及过程中遇到的问题和解决办法。
+在银河E8上保留Apple Music 7.0原登录页面，使用AM++大屏双栏播放与歌词布局。
 
-**第一次看，先读 [五分钟看懂这个项目](docs/start-here.md)。不需要先翻源码或35轮日志。**
+**当前交付版本：compat-38**，宿主Apple Music 7.0.0/1614、AM++ 1.6.8。[五分钟入门](docs/start-here.md) · [当前状态与待办](docs/known-issues.md)
 
-## 现在做到哪了
+## 最新进展
 
-- 早期处理了 Root 启动拦截，合入 AM++，调整横屏布局，并处理应用的蜂窝许可判断。
-- 34 版保留 7.0 的登录和二次验证页面，最后通过 **7.0 自带的另一条真实认证接口** 完成账户交接，不依赖安装 4.9.5。
-- 35 版保持34的有效内容，只压缩安装包：185.52 MiB → 135.13 MiB。
-- 用户已反馈35版在银河E8实车测试成功，并提供播放/歌词画面。全新二次验证和长期续期仍需单独验证。36版已完成播放器与歌单按钮界面修复及同代码模拟器验证，ARM64实车回归待测，见 [修改与验证记录](docs/ui36-preview.md)。
+| 版本 | 已完成 | 验证情况 |
+|---|---|---|
+| 34 | 使用7.0自带StoreAPI完成真实账户交接，保留原登录/二次验证页面，无需4.9.5或额外组件 | 本地等代码包清安装真实登录成功 |
+| 35 | 保持34有效内容，安装包由185.52 MiB压缩到135.13 MiB | 用户确认银河E8实车测试成功，提供播放/歌词画面 |
+| 36 | 修复歌单播放按钮裁切；隐藏播放器投放、音量条并重新居中左侧内容 | 同代码模拟器运行通过，ARM64包静态核验通过 |
+| 37 | 隐藏应用内均衡器入口 | 中文模拟器验证通过，保留其他音频设置 |
+| 38 | 182×104日夜图标：浅色白底黑音符，深色黑底白音符 | 图标资源、签名、对齐及代码不变校验通过 |
 
-37版另隐藏应用内均衡器入口，中文模拟器已验证；见 [修改说明](docs/ui37-hide-equalizer.md)。
+Root启动拦截、大屏双栏、蜂窝许可、独立登录和包体压缩已有处理。菜单跑左仍需实车定位；全新MFA、长期续期和38版桌面即时换图属于尚未完成的专项验证，不能据此写成已知功能失败。完整状态见 [状态清单](docs/known-issues.md)。
 
-38版在37之上使用182×104日间/夜间图标：浅色白底黑音符、深色黑底白音符，通过系统night资源配置选择。已校验资源、签名与代码不变；车机桌面刷新行为待实测，见 [图标修改说明](docs/ui38-theme-icons.md)。
+## 按需要阅读
 
-## 按你想做的事来读
-
-| 你想了解什么 | 打开这里 |
+| 需求 | 文档 |
 |---|---|
-| 整个项目在做什么，为什么这样解决 | **[五分钟入门](docs/start-here.md)** |
-| 当时一步步遇到了什么，哪些方案放弃了 | [01–35迭代经过](docs/history.md) |
-| 接着修功能或页面Bug，从哪个文件入手 | **[维护与代码导读](docs/code-guide.md)** |
-| 怎样编译、修改认证适配器、重新打包 | [构建说明](docs/build.md) |
-| 哪些通过了测试，哪些还不能保证 | [验证记录](docs/testing.md) · [已知问题](docs/known-issues.md) |
+| 从头了解项目 | [五分钟入门](docs/start-here.md) |
+| 查看01–38进展 | [迭代记录](docs/history.md) · [变更记录](CHANGELOG.md) |
+| 继续维护功能 | [代码导读](docs/code-guide.md) · [构建说明](docs/build.md) |
+| 查看当前问题及验证 | [状态清单](docs/known-issues.md) · [验证矩阵](docs/testing.md) |
+| 查看36–38改动 | [播放器与歌单](docs/ui36-preview.md) · [均衡器入口](docs/ui37-hide-equalizer.md) · [日夜图标](docs/ui38-theme-icons.md) |
+| 查看5.1研究方向 | [多声道输出调查](docs/audio-5.1-investigation.md)（尚未实现） |
 
-## 代码在哪
+## 代码与构建
 
-[认证源码](src/com/e8/auth36) · [构建工具](tools) · [早期横屏/菜单源码](historical-src) · [测试](tests)
+[认证源码](src/com/e8/auth36) · [构建工具](tools) · [UI补丁](patches) · [历史UI源码](historical-src) · [测试](tests)
 
-`auth36` 是沿用的代码包名，不代表有第36版。
-
-仓库包含原创补丁和工具，没有完整Apple源码、APK、SO、账户数据或私钥。目前能基于自备34/35包重建认证适配器；**从干净官方包重建所有早期改动的流水线还没全部整理完**。修改页面与AM++也需要补相应生产补丁，不能只改这里的Java认证文件。
-
-## 开发检查
+`auth36`是沿用的代码包名，不是交付版本号。构建工具支持34/35认证适配器增量更新、34→35压缩、35→36界面修复、36→37均衡器入口隐藏及37→38图标替换。从官方干净包重建全部早期兼容改动尚未形成完整流水线。
 
 ```sh
 python -m unittest discover -s tests -v
 python tools/scan_repository.py
 ```
 
-技术细节按需查阅：[认证调查](docs/authentication.md) · [架构](docs/architecture.md) · [Root/AM++/蜂窝](docs/early-compatibility.md) · [压缩](docs/packaging.md) · [证据来源](docs/evidence.md) · [源码范围](docs/sources.md)。
-
-提交问题请参考 [维护流程](CONTRIBUTING.md)，不要上传账号、密码、验证码或认证令牌。不伪造身份或成功结果，不关闭TLS校验。项目版本绑定Apple Music7.0.0/1614、AM++1.6.8；需要真实订阅，服务器变化可能影响兼容性。许可范围见 [LICENSE](LICENSE) 和 [第三方说明](THIRD_PARTY_NOTICES.md)。
+技术资料：[认证](docs/authentication.md) · [架构](docs/architecture.md) · [早期兼容](docs/early-compatibility.md) · [打包](docs/packaging.md) · [证据索引](docs/evidence.md) · [源码范围](docs/sources.md)。参与维护见 [CONTRIBUTING](CONTRIBUTING.md)，许可见 [LICENSE](LICENSE) 和 [第三方来源](THIRD_PARTY_NOTICES.md)。

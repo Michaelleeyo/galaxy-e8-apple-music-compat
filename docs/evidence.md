@@ -1,19 +1,18 @@
 # 证据索引与来源
 
-这里只保留手工审阅后的结论、原文件摘要与阶段信息。原始认证日志、截图、设备标识和请求正文不进Git。来源名是旧工作目录内的相对文件名，不要求其他维护者拥有原电脑目录。聊天用于补需求与顺序，动态断言尽量用文件佐证。
+当前交付链为34–38，版本大小与SHA256见 [发布清单](../evidence/release-manifest.json)，验证环境和结果见 [验证矩阵](testing.md)。
 
-| 主题 | 本地原始来源（不入库） | 本仓库呈现 |
+| 阶段 | 主要来源 | 项目记录 |
 |---|---|---|
-| Root/AM++/蜂窝 | 早期聊天“确认安卓版 Apple Music 是否检测 Root”；AppleMusic-v2-说明.txt；AppleMusic-AMpp-说明.txt；E8-cellular-fix-说明.txt；E8-4.9与7.0蜂窝判断对比.txt | early-compatibility.md |
-| 08集成 | E8-integrated-report.txt | history.md 08 |
-| 09–12 | E8-09实车反馈-取消码10.txt；E8-10实车图片-失败先于关闭.txt；E8-11-chain-diagnostic-report.txt；E8-12-error-diagnostic-report.txt | history.md / authentication.md |
-| 13–16 | 13-模拟器真实登录成功-关键节点.txt；14-覆盖范围与日志导出.txt；15-验证结果与说明.txt；16实车结果-修复可行性与具体前提.txt | authentication.md |
-| 17实车 | 17版车机Widevine系统直测结果.txt（CREATE阶段人工审阅） | 异常类型/NO_INIT，排除所有其他原文 |
-| 18–29 | outputs目录同序号的核查/测试说明；work/no-widevine25、v1-runtime27 | history.md，保留受控与真实区分 |
-| 30–33 | legacy-bridge30、package31、package32、package33的局部结果和构建记录 | 放弃方案及成功/失败边界 |
-| 34 | package34/final-validation.json、mfa-boundary-review.json、最终源码、清安装登录记录 | release-manifest.json / 源码 / 测试矩阵 |
-| 35 | package35/build-validation.json、signing-validation.json、runtime-extraction-validation.json、runtime-playback-validation.json、delivery-result.json | 发布哈希 / 压缩说明 / 测试矩阵 |
+| 早期兼容 | 稳定v2、AM++集成、蜂窝修正及4.9/7.0对比说明 | [早期兼容](early-compatibility.md) |
+| 09–17 | 登录诊断、认证链及Widevine系统直测结果 | [认证调查](authentication.md) · [历史](history.md) |
+| 18–33 | 旧认证桥接、无Widevine实验及真实v1认证验证 | [历史](history.md) |
+| 34 | 最终认证源码、清安装登录、MFA边界及静态验证 | [架构](architecture.md) · [导入验证](../evidence/repository-validation.json) |
+| 35 | 压缩、签名、冷提取及播放验证；用户实车成功反馈 | [打包](packaging.md) · [验证矩阵](testing.md) |
+| 36 | 同代码模拟器UI与ARM64内容核验 | [36验证](../evidence/ui36-validation.json) |
+| 37 | 中文模拟器设置页与ARM64内容核验 | [37验证](../evidence/ui37-validation.json) |
+| 38 | 图标原图、aapt2资源配置、签名/对齐及DEX/SO/模块比较 | [38验证](../evidence/ui38-validation.json) |
 
-[source-index.json](../evidence/source-index.json) 中的 `privateSourceLabel` 仅标记未公开历史文件，`publicSummaryUrl` 指向公开总结；它不是源码路径。该索引记录选定文件的SHA256，便于原电脑复核。摘要证明来源未变，不替代可公开复现的原始证据；外部读者无法仅凭哈希独立复核未公开实车日志。README明确保留这一限制。
+[source-index.json](../evidence/source-index.json)记录早期资料文件名与SHA256；privateSourceLabel为历史来源标签，publicSummaryUrl指向对应说明。历史文件摘要用于核对来源，当前功能结论按各版本验证记录判断。
 
-本次仓库整理验证结果见 `evidence/repository-validation.json`：15项单元测试、Java/D8重新编译与34适配器DEX逐字节一致、真实34增量组装及无损压缩、34/35的SHA256/签名/对齐检查。私钥签名步骤未在整理阶段重新执行，未新增设备运行测试。
+repository-validation.json保留首次导入阶段的Java/D8编译、15项单元测试及34/35核验结果；后续发布验证按版本另记，不将历史实验结果套用到最新版。

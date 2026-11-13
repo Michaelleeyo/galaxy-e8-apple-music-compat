@@ -11,7 +11,7 @@
 [hide_equalizer.py](../tools/hide_equalizer.py) 会校验输入哈希、原签名及方法结构，反汇编对应基线classes3.dex、实施这一个位置替换并组装，确认内层只变classes3.dex、外层只变origin.apk，然后沿用原证书签名。
 
 ```sh
-python tools/hide_equalizer.py --baseline <36-ARM64.apk> --expected-input-sha 1d3ad9daeb18c39f96f12b0e68cdcea8f6de4fe2e4829ed676eb82861cb4412e --work <新的外部工作目录> --output <37.apk> --java <java> --baksmali <baksmali.jar> --smali <smali.jar> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <外部私钥> --alias <原别名>
+python tools/hide_equalizer.py --baseline <36-ARM64.apk> --expected-input-sha 1d3ad9daeb18c39f96f12b0e68cdcea8f6de4fe2e4829ed676eb82861cb4412e --work <新的外部工作目录> --output <37.apk> --java <java> --baksmali <baksmali.jar> --smali <smali.jar> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <keystore路径> --alias <原别名>
 ```
 
 密码仍通过E8_SIGN_PASSWORD/E8_KEY_PASSWORD环境变量提供，参见 [构建说明](build.md)。ARM64和本地模拟器基线分别反汇编和打补丁，保留各自其他代码；不把模拟器整份classes3.dex覆盖到ARM64包。
