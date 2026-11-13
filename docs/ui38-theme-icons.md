@@ -1,6 +1,6 @@
 # 38：随系统深浅色选择启动图标
 
-基于37版，使用用户提供的两张182×104 PNG：浅色白底黑音符，深色黑底白音符。图像不裁切、不缩放，保留原始字节；桌面最终显示尺寸由车机启动器决定。
+基于37版，使用仓库内两张182×104 PNG：[浅色图标](../assets/icons/launcher-light.png)为白底黑音符，[深色图标](../assets/icons/launcher-dark.png)为黑底白音符。图像不裁切、不缩放，保留原始字节；桌面最终显示尺寸由车机启动器决定。
 
 ## 实现与构建
 
@@ -9,10 +9,10 @@
 仅从重建包取resources.arsc及四份PNG，写入原外层包及assets/npatch/origin.apk。原清单、DEX、SO、AM++模块和其他资源逐字节保留；旧图标文件可能仍留在ZIP内，但不再由这两个资源ID引用。
 
 ```sh
-python tools/build_theme_icons.py --baseline <37.apk> --light <白底黑音符.png> --dark <黑底白音符.png> --work <新的外部工作目录> --output <38.apk> --java <java> --apkeditor <APKEditor.jar> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <keystore路径> --alias <原别名>
+python tools/build_theme_icons.py --baseline <37.apk> --work <新的外部工作目录> --output <38.apk> --java <java> --apkeditor <APKEditor.jar> --zipalign <zipalign> --apksigner <apksigner.jar> --keystore <keystore路径> --alias <原别名>
 ```
 
-输入包括37APK、两张PNG和APKEditor；签名配置见 [构建说明](build.md)。版本仍为7.0.0/1614，38为交付序号。重建工具版本及ZIP压缩差异可能影响输出哈希，不保证逐字节复现。
+输入包括37APK、仓库内两张固定PNG和APKEditor；工具会校验图像尺寸与SHA256，防止误用其他图片。签名配置只从构建者本地参数和环境变量读取，见 [构建说明](build.md)；仓库不提供任何keystore、密码或私钥。版本仍为7.0.0/1614，38为交付序号。重建工具版本及ZIP压缩差异可能影响输出哈希，不保证逐字节复现。
 
 ## 验证与边界
 

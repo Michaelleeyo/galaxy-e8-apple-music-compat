@@ -23,39 +23,5 @@
   "deviceRuntimeTestsDuringImport": false,
   "fullOfficialApkTo34BuildImplemented": false,
   "incrementalAssemblyOnReal34Validated": true,
-  "incrementalInnerPayloadUnchangedForOriginalAdapter": true,
-  "maintenanceReview": {
-    "date": "2026-11-13",
-    "latestRelease": "38",
-    "unitTestsPassed": 15,
-    "documentationLinksValid": true,
-    "releaseChecks": {
-      "34": {
-        "sha256Matches": true,
-        "certificateMatches": true,
-        "alignmentVerified": true
-      },
-      "35": {
-        "sha256Matches": true,
-        "certificateMatches": true,
-        "alignmentVerified": true
-      },
-      "36": {
-        "sha256Matches": true,
-        "certificateMatches": true,
-        "alignmentVerified": true
-      },
-      "37": {
-        "sha256Matches": true,
-        "certificateMatches": true,
-        "alignmentVerified": true
-      },
-      "38": {
-        "sha256Matches": true,
-        "certificateMatches": true,
-        "alignmentVerified": true
-      }
-    },
-    "deviceRuntimeTestsDuringReview": false
-  }
+  "incrementalInnerPayloadUnchangedForOriginalAdapter": true
 }

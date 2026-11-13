@@ -41,7 +41,7 @@ python tools/verify_apk.py <34.apk> <35-new.apk>
 
 ## 支持的构建链
 
-已有34/35认证增量更新、34→35压缩、35→36界面修复、36→37均衡器入口隐藏、37→38图标替换和38→39播放器模块放大工具。早期Root/蜂窝等兼容接入仍依赖既有基线，尚不支持从官方干净包完整重建。各阶段输入哈希见发布清单。
+已有早期Root/蜂窝严格补丁，以及34/35认证增量更新、34→35压缩、35→36界面修复、36→37均衡器入口隐藏、37→38图标替换和38→39播放器模块放大工具。尚不支持从官方干净包一键重建全部历史兼容内容；缺口主要是早期横屏生命周期及历史基线组装。各阶段输入哈希见发布清单。
 
 ## 发布前检查
 
@@ -68,8 +68,27 @@ python tools/hide_equalizer.py --baseline <36.apk> --expected-input-sha 1d3ad9da
 
 ## 37 → 38深浅色启动图标
 
-使用外部APKEditor及两张182×104 PNG构建，命令、差异范围和实车验证边界见 [38图标说明](ui38-theme-icons.md)。签名配置与其他增量工具相同。
+使用外部APKEditor及仓库内两张182×104 PNG构建，命令、差异范围和实车验证边界见 [38图标说明](ui38-theme-icons.md)。签名配置与其他增量工具相同。
 
 ## 38 → 39播放器放大
 
-`tools/preview39_module_local.py` 从38基线提取AM++模块 `classes2.dex`，仅修改共享歌曲/列表页几何参数并生成新的模块DEX；随后按既有嵌套APK流程替换模块、对齐并签名。实际改动与验证边界见 [39说明](ui39-candidate.md)。
+`tools/build_ui39.py` 闭合38→39增量构建：从SHA256匹配的38基线提取AM++模块 `classes2.dex`，修改共享歌曲/列表页几何参数，重新组装并签名内层模块，替换、对齐并签名外层APK，最后限制有效差异范围。AM++原始集成属于上游项目和输入基线，不在此重复实现。
+
+```powershell
+# 运行前在当前进程环境中提供 E8_SIGN_PASSWORD；
+# 密钥密码不同时另提供 E8_KEY_PASSWORD。
+
+python tools/build_ui39.py `
+  --baseline <38.apk> `
+  --work <新的外部工作目录> `
+  --output <39.apk> `
+  --java <java> `
+  --baksmali <baksmali.jar> `
+  --smali <smali.jar> `
+  --zipalign <zipalign> `
+  --apksigner <apksigner.jar> `
+  --keystore <你的keystore> `
+  --alias <你的alias>
+```
+
+默认要求38基线SHA256为 `73d1028ded0ed2749f5ff08be67f1c4405534c3051579c365283e7d753ea6d99`。输出使用构建者在本地提供的签名；内层模块和外层APK必须使用同一证书。仓库不保存keystore、密码或私钥。若需覆盖安装已有版本，可用 `--expected-output-cert <SHA256>` 强制检查证书。工作目录和输出文件必须尚不存在。实际改动与验证边界见 [39说明](ui39-player-enlarge.md)。

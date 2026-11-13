@@ -4,6 +4,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from apk_common import repack,compare_payloads,inventory
 from patch_ui import patch,MARKER
 from patch_early_compatibility import patch_root,patch_cellular
+from build_ui39 import patch_module as patch_ui39_module
 from scan_repository import findings
 from update_adapter import replace_adapter
 
@@ -92,9 +93,26 @@ class EarlyCompatibilityPatchTests(unittest.TestCase):
     def test_cellular_rejects_partial_match(self):
         with self.assertRaises(ValueError):patch_cellular(self.CELLULAR.replace('key_use_cellular_data','other_key'))
 
+class Ui39PatchTests(unittest.TestCase):
+    ANCHOR='    invoke-direct/range {v37 .. v67}, Ldev/amenhancer/module/hook/TabletArtworkLayoutPolicy$SongColumn;-><init>(IIIIIIIIIIIFIIIIIFIIIIIIIIIIII)V'
+    def test_handle_dimensions_are_not_scaled(self):
+        with tempfile.TemporaryDirectory() as td:
+            policy=Path(td)/'dev/amenhancer/module/hook/TabletArtworkLayoutPolicy.smali'
+            policy.parent.mkdir(parents=True)
+            policy.write_text(self.ANCHOR+'\n',encoding='utf-8')
+            patch_ui39_module(Path(td))
+            result=policy.read_text(encoding='utf-8')
+            injected=result.split(self.ANCHOR)[0]
+            self.assertIn('v39',injected)
+            self.assertNotIn('move/16 v43, v1',injected)
+            self.assertNotIn('move/16 v44, v1',injected)
+            with self.assertRaises(ValueError):patch_ui39_module(Path(td))
+
 class ScannerTests(unittest.TestCase):
     def test_artifacts(self):self.assertIn('forbidden-artifact',findings(Path('sample.apk'),b'fixture'))
     def test_binary(self):self.assertIn('binary',findings(Path('x.txt'),b'\0'))
+    def test_project_png_is_allowed(self):self.assertNotIn('binary',findings(Path('assets/icons/launcher-light.png'),b'\x89PNG\r\n\x1a\n\0'))
+    def test_arbitrary_png_is_rejected(self):self.assertIn('binary',findings(Path('asset.png'),b'\x89PNG\r\n\x1a\n\0'))
     def test_email_without_real_identity(self):
         value=('fixture'+'@'+'qq'+'.com').encode()
         self.assertIn('personal-email',findings(Path('x.md'),value))

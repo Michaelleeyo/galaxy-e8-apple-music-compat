@@ -8,3 +8,7 @@
 APKEditor 1.4.9 / ARSCLib 1.3.9用于38版资源解码与重建；aapt2用于资源配置检查。以上为构建时使用的版本，非上游最新版本声明。
 
 36界面工作新增AM++对应Kotlin源码补丁：`patches/amplusplus-1.6.8-car-player.patch`，遵循GPL-3.0-only，基于上列精确提交；完整许可文本在 `licenses/AMplusplus-GPL-3.0.txt`。
+
+AM++的完整源码、构建和嵌入方式以其上游仓库为准；本仓库不重复镜像AM++，只保存银河E8专用差异及对已集成模块的增量构建工具。
+
+`assets/icons/launcher-light.png` 与 `assets/icons/launcher-dark.png` 是本项目提供的图标素材，不是第三方软件或签名材料。

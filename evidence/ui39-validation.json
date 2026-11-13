@@ -10,6 +10,8 @@
   "changedPayloads": ["assets/npatch/modules/dev.amenhancer.module.apk/classes2.dex"],
   "originApkUnchanged": true,
   "queueAdapterModified": false,
+  "fullIncrementalBuildReproduced": true,
+  "reproducedSha256MatchesRelease": true,
   "emulatorPreviewSha256": "45ba1fc548f3365742c2b00a41027771c3cb045b701b172ea6960c480bc8d02e",
   "physicalCarTested": false
 }

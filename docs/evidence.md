@@ -12,6 +12,7 @@
 | 36 | 同代码模拟器UI与ARM64内容核验 | [36验证](../evidence/ui36-validation.json) |
 | 37 | 中文模拟器设置页与ARM64内容核验 | [37验证](../evidence/ui37-validation.json) |
 | 38 | 图标原图、aapt2资源配置、签名/对齐及DEX/SO/模块比较 | [38验证](../evidence/ui38-validation.json) |
+| 39 | 完整38→39重建、签名/对齐及模块差异范围 | [39验证](../evidence/ui39-validation.json) |
 
 [source-index.json](../evidence/source-index.json)记录早期资料文件名与SHA256；privateSourceLabel为历史来源标签，publicSummaryUrl指向对应说明。历史文件摘要用于核对来源，当前功能结论按各版本验证记录判断。
 

@@ -4,13 +4,18 @@ from pathlib import Path
 from apk_common import compare_payloads, is_signature
 from build_car_ui import sign, CERT
 from repack import certificate
+ROOT = Path(__file__).resolve().parents[1]
 BASE_SHA = '747aaf7a48a2dc893408b36f5f5121b68745f46ccbce0b1b972e4c9e81ef9e92'
 ORIGIN = 'assets/npatch/origin.apk'
+LIGHT_SHA = '75b38049f37be5fe75ef2c58e35a2ce2cbec23e17dcbc1681f5e5c9e768678c8'
+DARK_SHA = 'cf114c99dcff97a37bf1bd625b19178de94978fcd6e86fd6723c9e4f8dc73a0a'
 
-def png(path):
+def png(path, expected_sha):
     data = path.read_bytes()
     if data[:8] != b'\x89PNG\r\n\x1a\n' or data[12:16] != b'IHDR' or struct.unpack('>II', data[16:24]) != (182, 104):
         raise ValueError('Expected an original 182x104 PNG')
+    if hashlib.sha256(data).hexdigest() != expected_sha:
+        raise ValueError('Launcher PNG SHA256 mismatch')
     return data
 
 def rewrite(source, output, changes):
@@ -25,8 +30,10 @@ def rewrite(source, output, changes):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    for key in ('baseline', 'light', 'dark', 'work', 'output'):
+    for key in ('baseline', 'work', 'output'):
         p.add_argument('--' + key, type=Path, required=True)
+    p.add_argument('--light', type=Path, default=ROOT / 'assets/icons/launcher-light.png')
+    p.add_argument('--dark', type=Path, default=ROOT / 'assets/icons/launcher-dark.png')
     for key in ('java', 'apkeditor', 'zipalign', 'apksigner', 'keystore', 'alias'):
         p.add_argument('--' + key, required=True)
     a = p.parse_args()
@@ -38,7 +45,7 @@ def main():
         raise ValueError('Baseline certificate mismatch')
     if not os.environ.get('E8_SIGN_PASSWORD'):
         raise ValueError('Set E8_SIGN_PASSWORD in the process environment')
-    images = {'': png(a.light), '-night': png(a.dark)}
+    images = {'': png(a.light, LIGHT_SHA), '-night': png(a.dark, DARK_SHA)}
     a.work.mkdir(parents=True)
     decoded = a.work / 'decoded'
     def editor(*args):

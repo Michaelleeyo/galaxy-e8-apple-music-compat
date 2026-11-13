@@ -8,6 +8,8 @@
   ],
   "light": "white background, black note",
   "dark": "black background, white note",
+  "lightSourceSha256": "75b38049f37be5fe75ef2c58e35a2ce2cbec23e17dcbc1681f5e5c9e768678c8",
+  "darkSourceSha256": "cf114c99dcff97a37bf1bd625b19178de94978fcd6e86fd6723c9e4f8dc73a0a",
   "outerDifferences": {
     "equal": false,
     "missing": [],

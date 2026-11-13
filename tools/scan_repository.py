@@ -3,6 +3,10 @@ import re,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 BANNED={'.apk','.apks','.apkm','.xapk','.so','.dex','.jar','.class','.keystore','.jks','.p12','.pfx','.pem','.key','.idsig','.log','.jsonl','.zip'}
+ALLOWED_BINARY={
+ 'assets/icons/launcher-light.png',
+ 'assets/icons/launcher-dark.png',
+}
 RULES={
  'private-key':r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----',
  'personal-email':r'[A-Z0-9._%+-]+@(?:qq|163|126|gmail|icloud|outlook)\.[A-Z]{2,}',
@@ -16,7 +20,9 @@ def findings(path,data):
     result=[]
     if path.suffix.lower() in BANNED:result.append('forbidden-artifact')
     if len(data)>1024*1024:result.append('oversize')
-    if b'\0' in data:result.append('binary')
+    normalized=path.as_posix()
+    allowed_binary=any(normalized.endswith('/'+name) or normalized==name for name in ALLOWED_BINARY)
+    if b'\0' in data and not allowed_binary:result.append('binary')
     text=data.decode('utf-8',errors='replace')
     for name,pattern in RULES.items():
         if re.search(pattern,text,re.I):result.append(name)
