@@ -1,0 +1,29 @@
+{
+  "repositoryImport": "2026-11-13",
+  "unitTestsPassed": 15,
+  "adapterCompiled": true,
+  "adapterByteIdenticalTo34": true,
+  "adapterSha256": "fa32e37cd796996709c397123cbfeeef085f9570a5d87e2be1d776d7f644bfb5",
+  "releaseChecks": {
+    "34": {
+      "sha256Matches": true,
+      "certificateMatches": true,
+      "alignmentVerified": true
+    },
+    "35": {
+      "sha256Matches": true,
+      "certificateMatches": true,
+      "alignmentVerified": true
+    },
+    "smaliHookMatches34IgnoringWhitespace": true
+  },
+  "nonSignatureEntriesCompared": 6437,
+  "release34And35PayloadEqual": true,
+  "portableRepackOnReal34PayloadEqual": true,
+  "deviceRuntimeTestsDuringImport": false,
+  "signingWithPrivateKeyDuringImport": false,
+  "fullOfficialApkTo34BuildImplemented": false,
+  "incrementalAssemblyOnReal34Validated": true,
+  "incrementalInnerPayloadUnchangedForOriginalAdapter": true,
+  "sourceFilesNormalizedToLf": true
+}

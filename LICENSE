@@ -1,0 +1,13 @@
+License scope
+
+This repository contains locally authored compatibility adapter source, tooling,
+tests, and engineering documentation. All rights in these original contributions
+are reserved pending the maintainer's choice of an open-source license.
+No additional license is granted merely by GitHub publication.
+
+Apple Music, Apple native libraries, Android SDK tools, AM++, NPatch, and other
+third-party works are not relicensed by this file. Their respective licenses and
+rights continue to apply. No proprietary application binaries are included.
+
+维护者尚未选择新增代码的开源许可证；本次整理不会替维护者授予许可。
+如后续引入或分发 GPL 代码/模块，需单独核实相应源代码及许可义务。

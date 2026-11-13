@@ -1,0 +1,26 @@
+{
+  "host": "Apple Music 7.0.0 (1614)",
+  "module": "AM++ 1.6.8",
+  "certificateSha256": "113307a4a4974d875fff074b6f79ef557abef81aac845c145b88bc529c62eed3",
+  "releases": {
+    "34": {
+      "bytes": 194527799,
+      "sha256": "23a50da45c52d670d8b6f82c74e8bbc88e71ddf00cf8921208a85f40a6c80a65"
+    },
+    "35": {
+      "bytes": 141693495,
+      "sha256": "4e2b203ff2d8af8c6b989cd1a166310667efc0e1ce51326325fd29eb9dd3fc63"
+    }
+  },
+  "sourceSha256": {
+    "src/com/e8/auth36/Completion.java": "63b19df0ba9c5bec39a162fac3630b4e1c8d65820f2f780f171d3be8fb1289ba",
+    "src/com/e8/auth36/FinalAccount.java": "0112850fb410cc101b9f58360dd13ec4659ba387f16370c80bf0c0f4d13096bf",
+    "historical-src/com/dhuadapter/DhuAdapterFactory.java": "678d9381638300e66876391563948e13ae21fddd9612125e164877f7e61b6ca3",
+    "historical-src/com/dhuadapter/MenuAnchorFix.java": "14a7225ab8fc367c330cfa33f0ac1a7cd1cbe0d653128d68753adabe702b4f75",
+    "stubs/fi/f.java": "f206741d3ae8319dfae73dd1960d828dbf856fcbf3e4f3ff848f4b5b38c05233",
+    "stubs/hi/c.java": "f29d17a8b7f323ad260422eab387cd6c7300ed622c1abd6307659dff839743b8",
+    "stubs/kotlin/coroutines/Continuation.java": "c88c1b61ea0f296c8489d00de4f9dfb4813a008837795e3c242c5b1663c7df1c"
+  },
+  "binariesIncluded": false,
+  "physicalCarFinalBuildValidated": false
+}

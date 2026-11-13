@@ -1,0 +1,62 @@
+[
+  {
+    "source": "AppleMusic-v2-说明.txt",
+    "sha256": "727e7bc38e0524fdbb860f3ed09adc6c816f5319ca002336fda685d49471fd1c",
+    "rawIncluded": false
+  },
+  {
+    "source": "AppleMusic-AMpp-说明.txt",
+    "sha256": "aa6e6a78f297b09ccc44fef3be46becf9835bc1d390a4feafa1269aa4208414b",
+    "rawIncluded": false
+  },
+  {
+    "source": "E8-cellular-fix-说明.txt",
+    "sha256": "1d51393a9b86d158a8a273881fc1167a267506b51321a005006f0b34c923a95f",
+    "rawIncluded": false
+  },
+  {
+    "source": "E8-integrated-report.txt",
+    "sha256": "b9ec6ab8a0b32a49c8c3d883f61535980523d1372c8a28c9b97adf87eccf1d0d",
+    "rawIncluded": false
+  },
+  {
+    "source": "16实车结果-修复可行性与具体前提.txt",
+    "sha256": "b13d3a1b695b0e4cd055651c57d03cb56219cd4a3f4998d80a293d34ecc8e0e0",
+    "rawIncluded": false
+  },
+  {
+    "source": "26-无Widevine登录失败-与车机对比.txt",
+    "sha256": "601961382b6fa90c0801b6cb83127a61ad6db47c4381b95441e7bc37a3838881",
+    "rawIncluded": false
+  },
+  {
+    "source": "28-独立v1真实登录-服务器结果.txt",
+    "sha256": "0595fc610e50b875f0a2fb893cae484e0bf72ec6726c339f50c275dc003baaa6",
+    "rawIncluded": false
+  },
+  {
+    "source": "final-validation.json",
+    "sha256": "c4b5a016a472a4374238fdd46b37406226cb5ebc835d92f4aa57541da229be83",
+    "rawIncluded": false
+  },
+  {
+    "source": "mfa-boundary-review.json",
+    "sha256": "3dc3e1d476038c9daa6442fa81648d882f6e4c46d89d10a6abb3db8a16852890",
+    "rawIncluded": false
+  },
+  {
+    "source": "build-validation.json",
+    "sha256": "2c3b59a05b443eea384adb32bbd14ddeadbef4ccb9fda6630ca495f0d1cd4e29",
+    "rawIncluded": false
+  },
+  {
+    "source": "runtime-playback-validation.json",
+    "sha256": "8efe65eb6a57a9f9a118ec5d89ed9db4b9c7808bff9d0b0d192a64e81b5dbc98",
+    "rawIncluded": false
+  },
+  {
+    "source": "17版车机Widevine系统直测结果.txt",
+    "sha256": "39c86a51b701198b9915332436abf82b8ef7b081cd318b40430b2bb211d094b2",
+    "rawIncluded": false
+  }
+]
